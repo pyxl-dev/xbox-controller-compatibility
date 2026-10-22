@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "Afterglow pour Luna",
+  "version": "1.0.0",
+  "description": "Rend la manette filaire PDP Afterglow (Xbox Series) utilisable sur Amazon Luna sous macOS, via WebUSB.",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://luna.amazon.com/*",
+        "https://luna.amazon.fr/*",
+        "https://luna.amazon.co.uk/*",
+        "https://luna.amazon.de/*",
+        "https://luna.amazon.es/*",
+        "https://luna.amazon.it/*",
+        "https://luna.amazon.ca/*"
+      ],
+      "js": ["gip-driver.js", "virtual-gamepad.js"],
+      "world": "MAIN",
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "Tester la manette Afterglow"
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
