@@ -3,3 +3,5 @@ node_modules/
 *.zip
 *.crx
 *.pem
+macos/padbridge.dylib
+macos/padbridge-test

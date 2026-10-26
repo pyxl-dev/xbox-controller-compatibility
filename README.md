@@ -66,6 +66,48 @@ visite sur Luna, et aussi si tu la débranches puis la rebranches.
 | `extension/virtual-gamepad.js` | Injecté dans Luna : expose la manette via `navigator.getGamepads()` |
 | `extension/tester.html` / `tester.js` | Page de test de la manette |
 | `extension/background.js` | Ouvre la page de test au clic sur l'icône |
+| `macos/padbridge.c` | Pont PowerA → Super Mario 3D World (bibliothèque injectée et outil de test) |
+| `macos/installer.sh` | Installe ou retire le pont dans l'appli du jeu |
+| `macos/jouer.sh` | Lance le jeu avec le pont sans l'installer |
+
+## Manettes PowerA sur Super Mario 3D World + Bowser's Fury (appli native)
+
+Le dossier [`macos/`](macos) contient un pont pour le portage natif du jeu
+(`/Applications/Super Mario 3D World + Bowser's Fury.app`, lanceur `nxnative` + moteur `dmhost`).
+Le jeu ne lit que les manettes reconnues par GameController.framework (Xbox, Joy-Con, DualSense…).
+Les manettes filaires **PowerA « NSW wired controller »** (USB `20d6:a713`) n'y apparaissent pas.
+
+`padbridge.dylib` est chargée dans `dmhost` au lancement. Elle lit les PowerA en HID et les donne au
+jeu par ses fonctions `dm_pad_set_player` / `dm_pad_players`, avec la disposition Switch (A reste A),
+les sticks analogiques et un joueur par manette. Elle cohabite avec les manettes gérées par le jeu :
+deux PowerA + Joy-Con + manette Xbox donnent 4 joueurs.
+
+### Installation
+
+```sh
+cd macos
+./installer.sh
+```
+
+Quitte le jeu avant. Le script compile le pont, le copie dans `Contents/Frameworks` de l'appli,
+ajoute `DYLD_INSERT_LIBRARIES` dans `LSEnvironment` de son `Info.plist` et la re-signe en ad hoc
+(comme à l'origine). Le jeu se lance ensuite normalement depuis le Dock ou le Finder. Une sauvegarde
+des fichiers modifiés est gardée dans `~/Library/Application Support/padbridge/sauvegarde`.
+
+- **Retirer le pont** : `./installer.sh --retirer` remet l'appli exactement comme avant.
+- **Après une reconstruction de l'appli** (nouvelle version du jeu) : relance `./installer.sh`.
+- **Sans installer** : `./jouer.sh` lance le jeu avec le pont pour une seule partie.
+- **Tester les manettes hors jeu** : `make padbridge-test && ./padbridge-test` affiche chaque bouton.
+- **Diagnostic** : les messages `[padbridge]` sont dans `~/Library/Logs/nxnative/010028600EBDA000.log`
+  (le jeu y écrit sa sortie). `PADBRIDGE_VERBOSE=1 ./jouer.sh` y ajoute les adresses trouvées.
+
+Si une version du jeu ne contient plus les fonctions attendues, le pont se désactive tout seul et le
+jeu se lance sans lui.
+
+### Joy-Con inversés (A agit comme B)
+
+Le jeu lit les manettes GameController par position, à la manière Xbox. Avec des Joy-Con combinés
+(Capture + Home 3 s), inverse A/B et X/Y dans **Réglages Système > Manettes de jeu**.
 
 ## Licence
 
