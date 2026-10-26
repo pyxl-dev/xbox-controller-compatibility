@@ -66,16 +66,17 @@ visite sur Luna, et aussi si tu la débranches puis la rebranches.
 | `extension/virtual-gamepad.js` | Injecté dans Luna : expose la manette via `navigator.getGamepads()` |
 | `extension/tester.html` / `tester.js` | Page de test de la manette |
 | `extension/background.js` | Ouvre la page de test au clic sur l'icône |
-| `macos/padbridge.c` | Pont PowerA → Super Mario 3D World (bibliothèque injectée et outil de test) |
-| `macos/installer.sh` | Installe ou retire le pont dans l'appli du jeu |
-| `macos/jouer.sh` | Lance le jeu avec le pont sans l'installer |
+| `macos/padbridge.c` | Pont PowerA → portages nxnative (bibliothèque injectée et outil de test) |
+| `macos/installer.sh` | Installe ou retire le pont dans les portages nxnative |
+| `macos/jouer.sh` | Lance un portage avec le pont sans l'installer |
 
-## Manettes PowerA sur Super Mario 3D World + Bowser's Fury (appli native)
+## Manettes PowerA sur les portages natifs nxnative (Super Mario 3D World…)
 
-Le dossier [`macos/`](macos) contient un pont pour le portage natif du jeu
-(`/Applications/Super Mario 3D World + Bowser's Fury.app`, lanceur `nxnative` + moteur `dmhost`).
-Le jeu ne lit que les manettes reconnues par GameController.framework (Xbox, Joy-Con, DualSense…).
-Les manettes filaires **PowerA « NSW wired controller »** (USB `20d6:a713`) n'y apparaissent pas.
+Le dossier [`macos/`](macos) contient un pont pour les portages natifs de jeux Switch faits avec
+nxnative : une appli qui contient le lanceur `Contents/MacOS/nxnative` et le moteur `dmhost`, comme
+`/Applications/Super Mario 3D World + Bowser's Fury.app`. Ces jeux ne lisent que les manettes
+reconnues par GameController.framework (Xbox, Joy-Con, DualSense…). Les manettes filaires
+**PowerA « NSW wired controller »** (USB `20d6:a713`) n'y apparaissent pas.
 
 `padbridge.dylib` est chargée dans `dmhost` au lancement. Elle lit les PowerA en HID et les donne au
 jeu par ses fonctions `dm_pad_set_player` / `dm_pad_players`, avec la disposition Switch (A reste A),
@@ -89,20 +90,28 @@ cd macos
 ./installer.sh
 ```
 
-Quitte le jeu avant. Le script compile le pont, le copie dans `Contents/Frameworks` de l'appli,
+Sans argument, le script traite tous les portages nxnative de `/Applications` et `~/Applications`.
+Pour un seul jeu : `./installer.sh "/Applications/Mon jeu.app"`. Quitte les jeux avant : un jeu
+ouvert est sauté. Pour chaque appli, le script compile le pont, le copie dans `Contents/Frameworks`,
 ajoute `DYLD_INSERT_LIBRARIES` dans `LSEnvironment` de son `Info.plist` et la re-signe en ad hoc
 (comme à l'origine). Le jeu se lance ensuite normalement depuis le Dock ou le Finder. Une sauvegarde
-des fichiers modifiés est gardée dans `~/Library/Application Support/padbridge/sauvegarde`.
+des fichiers modifiés est gardée par jeu dans
+`~/Library/Application Support/padbridge/sauvegarde/<identifiant de l'appli>`.
 
-- **Retirer le pont** : `./installer.sh --retirer` remet l'appli exactement comme avant.
-- **Après une reconstruction de l'appli** (nouvelle version du jeu) : relance `./installer.sh`.
-- **Sans installer** : `./jouer.sh` lance le jeu avec le pont pour une seule partie.
+- **Nouveau portage** : relance `./installer.sh` après l'avoir mis dans `/Applications`.
+- **Retirer le pont** : `./installer.sh --retirer` (tous les jeux) ou
+  `./installer.sh --retirer "/Applications/Mon jeu.app"` remet l'appli exactement comme avant.
+- **Après une reconstruction d'une appli** (nouvelle version du jeu) : relance `./installer.sh`.
+- **Sans installer** : `./jouer.sh "/Applications/Mon jeu.app"` lance le jeu avec le pont pour une
+  seule partie (sans argument s'il n'y a qu'un portage).
 - **Tester les manettes hors jeu** : `make padbridge-test && ./padbridge-test` affiche chaque bouton.
-- **Diagnostic** : les messages `[padbridge]` sont dans `~/Library/Logs/nxnative/010028600EBDA000.log`
-  (le jeu y écrit sa sortie). `PADBRIDGE_VERBOSE=1 ./jouer.sh` y ajoute les adresses trouvées.
+- **Diagnostic** : les messages `[padbridge]` sont dans `~/Library/Logs/nxnative/<TITLE ID>.log`
+  (le jeu y écrit sa sortie ; `010028600EBDA000` pour Mario). `PADBRIDGE_VERBOSE=1 ./jouer.sh` y
+  ajoute les adresses trouvées.
 
-Si une version du jeu ne contient plus les fonctions attendues, le pont se désactive tout seul et le
-jeu se lance sans lui.
+Le pont dépend de la partie manettes du moteur `dmhost`, commune aux portages nxnative. Si une
+version ne contient plus les fonctions attendues, le pont se désactive tout seul et le jeu se lance
+sans lui. Un jeu solo envoie toutes les manettes au joueur 1.
 
 ### Joy-Con inversés (A agit comme B)
 

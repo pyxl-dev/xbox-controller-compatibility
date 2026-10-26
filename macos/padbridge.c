@@ -1,4 +1,4 @@
-// Pont manettes pour Super Mario 3D World + Bowser's Fury (portage natif nxnative/dmhost).
+// Pont manettes pour les portages natifs nxnative (moteur dmhost), ex. Super Mario 3D World.
 // Bibliothèque chargée dans dmhost avec DYLD_INSERT_LIBRARIES : elle lit les manettes que
 // GameController.framework ignore (PowerA filaire Switch en HID) et les donne au jeu via ses
 // fonctions exportées dm_pad_set_player / dm_pad_players.
