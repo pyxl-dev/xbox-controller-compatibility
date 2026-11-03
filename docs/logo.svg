@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="xbox-controller-compatibility">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9a55ff"/>
+      <stop offset="1" stop-color="#4b1fa6"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <g transform="translate(0 20)">
+    <!-- USB plug and cable -->
+    <rect x="228" y="62" width="56" height="44" rx="10" fill="#fff"/>
+    <rect x="246" y="100" width="20" height="64" fill="#fff"/>
+    <!-- controller -->
+    <path fill="#fff" d="M150 160H362C400 160 420 180 430 225L452 340C458 382 436 402 404 402C380 402 366 390 354 370L338 346H174L158 370C146 390 132 402 108 402C76 402 54 382 60 340L82 225C92 180 112 160 150 160Z"/>
+    <!-- d-pad -->
+    <g fill="#5a28bd">
+      <rect x="128" y="246" width="68" height="22" rx="7"/>
+      <rect x="151" y="223" width="22" height="68" rx="7"/>
+      <!-- face buttons -->
+      <circle cx="352" cy="220" r="13"/>
+      <circle cx="352" cy="272" r="13"/>
+      <circle cx="326" cy="246" r="13"/>
+      <circle cx="378" cy="246" r="13"/>
+    </g>
+  </g>
+</svg>

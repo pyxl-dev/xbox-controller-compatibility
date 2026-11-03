@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" role="img" aria-label="xbox-controller-compatibility : une manette Xbox filaire utilisable sur macOS">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b1230"/>
+      <stop offset="1" stop-color="#0d0a18"/>
+    </linearGradient>
+    <linearGradient id="logo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9a55ff"/>
+      <stop offset="1" stop-color="#4b1fa6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx=".18" cy=".5" r=".6">
+      <stop offset="0" stop-color="#7b2ff7" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#7b2ff7" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1280" height="400" rx="24" fill="url(#bg)"/>
+  <rect width="1280" height="400" rx="24" fill="url(#glow)"/>
+  <!-- logo -->
+  <g transform="translate(80 80) scale(.46875)">
+    <rect width="512" height="512" rx="116" fill="url(#logo)"/>
+    <g transform="translate(0 20)">
+      <rect x="228" y="62" width="56" height="44" rx="10" fill="#fff"/>
+      <rect x="246" y="100" width="20" height="64" fill="#fff"/>
+      <path fill="#fff" d="M150 160H362C400 160 420 180 430 225L452 340C458 382 436 402 404 402C380 402 366 390 354 370L338 346H174L158 370C146 390 132 402 108 402C76 402 54 382 60 340L82 225C92 180 112 160 150 160Z"/>
+      <g fill="#5a28bd">
+        <rect x="128" y="246" width="68" height="22" rx="7"/>
+        <rect x="151" y="223" width="22" height="68" rx="7"/>
+        <circle cx="352" cy="220" r="13"/>
+        <circle cx="352" cy="272" r="13"/>
+        <circle cx="326" cy="246" r="13"/>
+        <circle cx="378" cy="246" r="13"/>
+      </g>
+    </g>
+  </g>
+  <!-- text -->
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" fill="#fff">
+    <text x="360" y="150" font-size="56" font-weight="700">xbox-controller-compatibility</text>
+    <text x="360" y="202" font-size="28" fill="#cdbdf5">Ta manette Xbox filaire, enfin reconnue sur Mac.</text>
+  </g>
+  <!-- chain -->
+  <g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="20" text-anchor="middle">
+    <rect x="360" y="250" width="200" height="56" rx="28" fill="#fff" fill-opacity=".08" stroke="#9a55ff" stroke-opacity=".7"/>
+    <text x="460" y="285" fill="#fff">USB / GIP</text>
+    <path d="M572 278h40m-12-10l12 10-12 10" fill="none" stroke="#9a55ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="624" y="250" width="200" height="56" rx="28" fill="#fff" fill-opacity=".08" stroke="#9a55ff" stroke-opacity=".7"/>
+    <text x="724" y="285" fill="#fff">WebUSB</text>
+    <path d="M836 278h40m-12-10l12 10-12 10" fill="none" stroke="#9a55ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="888" y="250" width="260" height="56" rx="28" fill="#fff" fill-opacity=".08" stroke="#9a55ff" stroke-opacity=".7"/>
+    <text x="1018" y="285" fill="#fff">getGamepads()</text>
+  </g>
+</svg>
