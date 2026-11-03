@@ -21,6 +21,8 @@ macOS does not recognise it. A Brave extension talks to the controller over USB 
 
 <p align="center"><img src="docs/banner.svg" width="100%" alt="The chain: controller over USB (GIP protocol), WebUSB in Brave, then navigator.getGamepads() on Luna"></p>
 
+<p align="center"><img src="docs/screenshot.png" width="460" alt="The extension's test page, captured with no controller plugged in: "Non connectée" state, buttons and axes idle"></p>
+
 ## Why
 
 macOS does not recognise the wired **PDP Afterglow for Xbox Series X** controller (USB `0e6f:02da`): it speaks the Xbox "GIP" protocol, and Apple's built-in driver only handles Microsoft controllers. As a result no game or website sees it, and the "Game Controllers" setting stays empty.

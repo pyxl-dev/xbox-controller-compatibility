@@ -21,6 +21,8 @@ macOS ne la reconnaît pas. Une extension Brave parle à la manette en USB et la
 
 <p align="center"><img src="docs/banner.svg" width="100%" alt="La chaîne : manette en USB (protocole GIP), WebUSB dans Brave, puis navigator.getGamepads() sur Luna"></p>
 
+<p align="center"><img src="docs/screenshot.png" width="460" alt="Page de test de l'extension, capturée sans manette branchée : état « Non connectée », boutons et axes éteints"></p>
+
 ## Pourquoi
 
 macOS ne reconnaît pas la manette filaire **PDP Afterglow pour Xbox Series X** (USB `0e6f:02da`) : elle parle le protocole Xbox « GIP », et le pilote intégré d'Apple ne gère que les manettes Microsoft. Résultat : aucun jeu ni site ne la voit, et le réglage « Manettes de jeu » reste vide.
